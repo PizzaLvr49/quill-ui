@@ -1,0 +1,56 @@
+[package]
+name = "quill-ui"
+version = "0.0.0"
+edition = "2024"
+description = "Lightweight but fast native rust UI library."
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+accesskit = "0.24.1"
+accesskit_winit = "0.33.1"
+arboard = { version = "3.6.1" }
+async-executor = "1.14.0"
+async-io = "2.6.0"
+bytemuck = { version = "1.25.0", features = ["derive"] }
+etagere = "0.3.0"
+glam = { version = "0.33.2", features = ["bytemuck"] }
+glyphon = "0.12.0"
+image = { version = "0.25.10", default-features = false, features = [
+    "png",
+    "jpeg",
+    "webp",
+] }
+resvg = { version = "0.47.0", default-features = false, features = [
+    "raster-images",
+] }
+taffy = "0.12.1"
+thiserror = "2.0.18"
+tracing = "0.1.44"
+wgpu = "30.0.0"
+winit = { version = "0.30.13", default-features = false, features = ["rwh_06"] }
+
+[dev-dependencies]
+tracing-subscriber = "0.3.23"
+
+[features]
+default = ["wayland", "x11"]
+wayland = [
+    "winit/wayland",
+    "winit/wayland-dlopen",
+    "arboard/wayland-data-control",
+]
+x11 = ["winit/x11"]
+image-gif = ["image/gif"]
+image-ico = ["image/ico"]
+image-bmp = ["image/bmp"]
+image-tiff = ["image/tiff"]
+image-avif = ["image/avif"]
+svg-text = ["resvg/text", "resvg/system-fonts"]
+
+[lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+nursery = { level = "warn", priority = -1 }
+allow_attributes_without_reason = "deny"
+
+[lints.rust]
+unsafe_code = "deny"
